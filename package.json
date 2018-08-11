@@ -1,5 +1,5 @@
 {
-  "name": ".",
+  "name": "ethindia",
   "version": "0.0.1",
   "description": "",
   "scripts": {
@@ -9,5 +9,7 @@
   "license": "ISC",
   "homepage": "",
   "devDependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "embark": "^3.1.7"
   }
 }
