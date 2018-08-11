@@ -3,6 +3,7 @@ import EmbarkJS from "Embark/EmbarkJS";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
+import AddNumber from "../components/AddNumber";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -49,14 +50,17 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <Router>
-                <AccountSelector
-                    accounts={this.state.accounts}
-                    onAccountChange={this.onAccountChange}
-                    currentAccount={this.state.currentAccount}
-                    balance={this.state.balance}
-                />
-            </Router>
+            <div>
+                <Router>
+                    <AccountSelector
+                        accounts={this.state.accounts}
+                        onAccountChange={this.onAccountChange}
+                        currentAccount={this.state.currentAccount}
+                        balance={this.state.balance}
+                    />
+                </Router>
+                <AddNumber />
+            </div>
         );
     }
 }

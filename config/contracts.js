@@ -1,13 +1,13 @@
 module.exports = {
-  // default applies to all environments
-  default: {
-    // Blockchain node to deploy the contracts
-    deployment: {
-      host: "localhost", // Host of the blockchain node
-      port: 8545, // Port of the blockchain node
-      type: "rpc" // Type of connection (ws or rpc),
-      // Accounts to use instead of the default account to populate your wallet
-      /*,accounts: [
+    // default applies to all environments
+    default: {
+        // Blockchain node to deploy the contracts
+        deployment: {
+            host: "localhost", // Host of the blockchain node
+            port: 8545, // Port of the blockchain node
+            type: "rpc" // Type of connection (ws or rpc),
+            // Accounts to use instead of the default account to populate your wallet
+            /*,accounts: [
         {
           privateKey: "your_private_key",
           balance: "5 ether"  // You can set the balance of the account in the dev environment
@@ -23,19 +23,22 @@ module.exports = {
           hdpath: "m/44'/60'/0'/0/" // Optionnal. HD derivation path
         }
       ]*/
-    },
-    // order of connections the dapp should connect to
-    dappConnection: [
-      "$WEB3",  // uses pre existing web3 object if available (e.g in Mist)
-      "ws://localhost:8546",
-      "http://localhost:8545"
-    ],
-    gas: "auto",
-    contracts: {
-      // example:
-      //SimpleStorage: {
-      //  args: [ 100 ]
-      //}
+        },
+        // order of connections the dapp should connect to
+        dappConnection: [
+            "$WEB3", // uses pre existing web3 object if available (e.g in Mist)
+            "ws://localhost:8546",
+            "http://localhost:8545"
+        ],
+        gas: "auto",
+        contracts: {
+            // example:
+            //SimpleStorage: {
+            //  args: [ 100 ]
+            //}
+            Dreg: {
+                args: []
+            }
+        }
     }
-  }
 };
