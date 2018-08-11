@@ -16,12 +16,17 @@ export default class App extends React.Component {
     }
 
     loadAccountUsers() {
-        web3.eth.getAccounts().then(accounts => {
-            this.setState({
-                accounts
+        web3.eth
+            .getAccounts()
+            .then(accounts => {
+                this.setState({
+                    accounts
+                });
+                this.onAccountChange(accounts[0]);
+            })
+            .catch(err => {
+                console.log(`App.loadAccountUsers: ${err}`);
             });
-            this.onAccountChange(accounts[0]);
-        });
     }
 
     onAccountChange = accnt => {
@@ -31,14 +36,19 @@ export default class App extends React.Component {
 
         web3.eth.defaultAccount = accnt;
 
-        web3.eth.getBalance(accnt).then(balance => {
-            balance = web3.utils.fromWei(balance, "ether");
-            balance = Number.parseFloat(balance).toFixed(3);
+        web3.eth
+            .getBalance(accnt)
+            .then(balance => {
+                balance = web3.utils.fromWei(balance, "ether");
+                balance = Number.parseFloat(balance).toFixed(3);
 
-            this.setState({
-                balance
+                this.setState({
+                    balance
+                });
+            })
+            .catch(err => {
+                console.log(`App.onAccountChange: ${err}`);
             });
-        });
     };
 
     componentDidMount() {
