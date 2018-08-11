@@ -32,7 +32,7 @@ contract Dreg is Ownable {
 
   function getName(string _num) external payable payEther  {
     /* require(bytes(registry[keccak256(abi.encodePacked(_num))]).length>0, "Number not registered"); */
-    sendName(registry[keccak256(abi.encodePacked(_num))]);
+    emit sendName(registry[keccak256(abi.encodePacked(_num))]);
   }
 
   function setCharge(uint _charge) external onlyOwner {

@@ -36,4 +36,9 @@ contract("Dreg contract", () => {
         console.log(balance);
         assert.equal(100000000000000, balance);
     });
+
+    it("Balance Distribution", async () => {
+        await Dreg.methods.distributeMoney().send();
+        assert.equal(await Dreg.methods.getBalance().call(), 0);
+    });
 });
