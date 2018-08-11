@@ -39,7 +39,7 @@
         "contracts": {
             "0x65e9f617b041872058181572dc22d817816c2a4fac9cd1944da499d8fe70c2e1": {
                 "name": "Ownable",
-                "address": "0x2e43f2f99cDD197147cD51eF6ecff0b4CfB52CE0"
+                "address": "0xD62759a43e412Fb7cB007cd2D581ccB512FB39ed"
             },
             "0xa03f14762d34db85a0e6826f2e05a3f8ebee62e39588077b63659571b5c76493": {
                 "name": "Dreg",

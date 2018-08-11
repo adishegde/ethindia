@@ -1,8 +1,9 @@
 import React from "react";
 import EmbarkJS from "Embark/EmbarkJS";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
+import TopMenu from "../components/TopMenu";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -58,15 +59,24 @@ export default class App extends React.Component {
     }
 
     render() {
+        let { accounts, balance, currentAccount } = this.state;
+
         return (
-            <Router>
-                <AccountSelector
-                    accounts={this.state.accounts}
-                    onAccountChange={this.onAccountChange}
-                    currentAccount={this.state.currentAccount}
-                    balance={this.state.balance}
-                />
-            </Router>
+            <div id="app" style={{ width: "100%", height: "100%" }}>
+                <TopMenu />
+                <Switch>
+                    <Route
+                        path="/accounts"
+                        render={() => (
+                            <AccountSelector
+                                accounts={accounts}
+                                currentAccount={currentAccount}
+                                balance={balance}
+                            />
+                        )}
+                    />
+                </Switch>
+            </div>
         );
     }
 }
