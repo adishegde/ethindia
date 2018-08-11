@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
 import TopMenu from "../components/TopMenu";
+import InsertContacts from "../components/InsertContacts";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -75,6 +76,7 @@ export default class App extends React.Component {
                             />
                         )}
                     />
+                    <Route path="/insert" component={InsertContacts} />
                 </Switch>
             </div>
         );
