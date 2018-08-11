@@ -1,1 +1,38 @@
-{}
+{
+  "0x694a9cc5e85527e067c4b1af3fa0cdd5e06a7bc55fbd591d59fc17ec11fe0614": {
+    "contracts": {
+      "0x65e9f617b041872058181572dc22d817816c2a4fac9cd1944da499d8fe70c2e1": {
+        "name": "Ownable",
+        "address": "0x88A30a1C030B6D0C3ADdd4f07fAF43F55AA16521"
+      },
+      "0xb58514740762b061c78786c941b33e159a3b87ddd7072f10f85a5ab6164051ff": {
+        "name": "Dreg",
+        "address": "0x81188306F37B26D9061Ad905BD5CeCF7aFB0FA2C"
+      },
+      "0x536bdeeeaa465f36780a33165c960af66a475ea43a74ba5a472f9c04742134cf": {
+        "name": "Dreg",
+        "address": "0x817B04Df3e2b8B26e51b910CdF33c553D86D8cDb"
+      }
+    }
+  },
+  "0x2231d45007d60faffbf7d604adb7904f0ce107dcf881c0b81c7ac9d61da1d606": {
+    "contracts": {
+      "0x65e9f617b041872058181572dc22d817816c2a4fac9cd1944da499d8fe70c2e1": {
+        "name": "Ownable",
+        "address": "0x801fCE39e05570ebA26AEDF91DC62Abe2c72F485"
+      },
+      "0xb899ae3fdb098394af661df38e2e4c93abeb842be95dfa7c9e68ba4312caf3ff": {
+        "name": "Dreg",
+        "address": "0x647185A515343fa88D62D7af7e6edbD6A645352f"
+      },
+      "0x3bc491e057d382ffccd2c1087526acc146ade75fb5b0cf795f681685b51600d3": {
+        "name": "Dreg",
+        "address": "0x9E23107b63dFE1Bde400E19bC86cB8568C1E26b1"
+      },
+      "0x8d67ee61834f7cb8a92c9bb73cdabd3c4904a74291a312dd372f4adbd1b41228": {
+        "name": "Dreg",
+        "address": "0x25B84B2fc9964F27db589Ef64902B51100169353"
+      }
+    }
+  }
+}
