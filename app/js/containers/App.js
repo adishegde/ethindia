@@ -1,9 +1,9 @@
 import React from "react";
 import EmbarkJS from "Embark/EmbarkJS";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
-import AddNumber from "../components/AddNumber";
+import TopMenu from "../components/TopMenu";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -17,12 +17,17 @@ export default class App extends React.Component {
     }
 
     loadAccountUsers() {
-        web3.eth.getAccounts().then(accounts => {
-            this.setState({
-                accounts
+        web3.eth
+            .getAccounts()
+            .then(accounts => {
+                this.setState({
+                    accounts
+                });
+                this.onAccountChange(accounts[0]);
+            })
+            .catch(err => {
+                console.log(`App.loadAccountUsers: ${err}`);
             });
-            this.onAccountChange(accounts[0]);
-        });
     }
 
     onAccountChange = accnt => {
@@ -32,14 +37,19 @@ export default class App extends React.Component {
 
         web3.eth.defaultAccount = accnt;
 
-        web3.eth.getBalance(accnt).then(balance => {
-            balance = web3.utils.fromWei(balance, "ether");
-            balance = Number.parseFloat(balance).toFixed(3);
+        web3.eth
+            .getBalance(accnt)
+            .then(balance => {
+                balance = web3.utils.fromWei(balance, "ether");
+                balance = Number.parseFloat(balance).toFixed(3);
 
-            this.setState({
-                balance
+                this.setState({
+                    balance
+                });
+            })
+            .catch(err => {
+                console.log(`App.onAccountChange: ${err}`);
             });
-        });
     };
 
     componentDidMount() {
@@ -49,17 +59,23 @@ export default class App extends React.Component {
     }
 
     render() {
+        let { accounts, balance, currentAccount } = this.state;
+
         return (
-            <div>
-                <Router>
-                    <AccountSelector
-                        accounts={this.state.accounts}
-                        onAccountChange={this.onAccountChange}
-                        currentAccount={this.state.currentAccount}
-                        balance={this.state.balance}
+            <div id="app" style={{ width: "100%", height: "100%" }}>
+                <TopMenu />
+                <Switch>
+                    <Route
+                        path="/accounts"
+                        render={() => (
+                            <AccountSelector
+                                accounts={accounts}
+                                currentAccount={currentAccount}
+                                balance={balance}
+                            />
+                        )}
                     />
-                </Router>
-                <AddNumber />
+                </Switch>
             </div>
         );
     }
