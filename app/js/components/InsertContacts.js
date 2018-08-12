@@ -41,7 +41,11 @@ function ConfirmModal({
                     <Table.Body>{rows}</Table.Body>
                 </Table>
                 <Segment basic loading={loading}>
-                    <Header as="h4" content="Gas Estimate" />
+                    <Header
+                        as="h4"
+                        content="Gas Estimate"
+                        style={{ color: "#FFFFFF" }}
+                    />
                     {gasEstimate}
                 </Segment>
             </Modal.Content>

@@ -75,6 +75,7 @@ export default class App extends React.Component {
                                 accounts={accounts}
                                 currentAccount={currentAccount}
                                 balance={balance}
+                                onAccountChange={this.onAccountChange}
                             />
                         )}
                     />
