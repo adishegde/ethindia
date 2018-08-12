@@ -67,6 +67,7 @@ contract Dreg is Ownable {
 
   // give the owner the cost of calling distributeMoney, distribute the rest amongst the others
   function getMoney() external payable changeMonth() {
+    require(userMapping[msg.sender] != 0, "To get rewards kindly contribute to DReg");
     require(monthlyWithdrawal[msg.sender] != latestMonthNumber, "Already withdrew the reward for current month");
     monthlyWithdrawal[msg.sender] = latestMonthNumber;
     msg.sender.send(distributedAmount);
