@@ -7,26 +7,31 @@ import {
     Message,
     Button,
     Input,
-    Modal,
-    Loader
+    Modal
 } from "semantic-ui-react";
 import Dreg from "Embark/contracts/Dreg";
 
 function ConfirmModal({ open, onConfirm, onCancel, trCost, loading }) {
-    let cost = trCost;
-    if (loading) cost = <Loader size="mini" />;
+    let cost = web3.utils.fromWei(trCost, "ether");
+    if (loading) cost = "-";
 
     return (
         <Modal open={open} onCancel={onCancel} basic size="small">
             <Header content="Confirm Transaction" />
             <Modal.Content>
-                This transaction will cost {trCost} wei.
+                This transaction will cost <Icon name="ethereum" />
+                {cost} ETH.
             </Modal.Content>
             <Modal.Actions>
                 <Button basic color="red" inverted onClick={onCancel}>
                     <Icon name="remove" /> Cancel
                 </Button>
-                <Button color="green" inverted onClick={onConfirm}>
+                <Button
+                    color="green"
+                    inverted
+                    onClick={onConfirm}
+                    loading={loading}
+                >
                     <Icon name="checkmark" /> Confirm
                 </Button>
             </Modal.Actions>
@@ -40,7 +45,7 @@ export default class GetData extends React.Component {
 
         this.state = {
             query: "",
-            result: "",
+            result: null,
             loading: false,
             error: "",
             openModal: false,
@@ -49,6 +54,18 @@ export default class GetData extends React.Component {
     }
 
     render() {
+        let resultEl = null;
+        if (this.state.result !== null) {
+            resultEl = (
+                <Segment basic>
+                    <div>
+                        <Header as="h3" content="Result" color="teal" />
+                        {this.state.result || "No results found"}
+                    </div>
+                </Segment>
+            );
+        }
+
         return (
             <div className="get-data" style={{ height: "100%", width: "100%" }}>
                 <Grid
@@ -60,26 +77,23 @@ export default class GetData extends React.Component {
                         <Header as="h2" color="teal" textAlign="center">
                             Query using Mobile Number
                         </Header>
-                        <Segment>
-                            <Input
-                                value={this.state.query}
-                                onChange={this.onInputChange}
-                                placeholder="Enter mobile number"
-                            />
-                            <Button
-                                onClick={this.onSearch}
-                                color="teal"
-                                loading={this.state.loading}
-                            >
-                                Search
-                            </Button>
-                            {this.state.result ? (
-                                <div>
-                                    <Header as="h4" content="Result" />
-                                    {this.state.result}
-                                </div>
-                            ) : null}
-                        </Segment>
+                        <Segment.Group>
+                            <Segment>
+                                <Input
+                                    value={this.state.query}
+                                    onChange={this.onInputChange}
+                                    placeholder="Enter mobile number"
+                                />
+                                <Button
+                                    onClick={this.onSearch}
+                                    color="teal"
+                                    loading={this.state.loading}
+                                >
+                                    Search
+                                </Button>
+                            </Segment>
+                            {resultEl}
+                        </Segment.Group>
                         {this.state.error ? (
                             <Message negative>
                                 <Message.Header>
@@ -109,7 +123,8 @@ export default class GetData extends React.Component {
     onSearch = () => {
         this.setState({
             openModal: true,
-            loading: true
+            loading: true,
+            result: null
         });
 
         Dreg.methods
@@ -122,11 +137,14 @@ export default class GetData extends React.Component {
                 });
             })
             .catch(error => {
+                error = error.toString();
+
                 this.setState({
                     error,
                     loading: false,
                     openModal: false
                 });
+                console.log(`GetData.onSearch: ${error}`);
             });
     };
 
@@ -137,14 +155,10 @@ export default class GetData extends React.Component {
             error: ""
         });
 
-        console.log(typeof this.state.cost, this.state.cost, this);
-
         Dreg.methods
             .getName(this.state.query)
-            .send({ value: this.state.cost + "0" })
+            .send({ value: this.state.cost })
             .on("receipt", receipt => {
-                console.log(receipt);
-                console.log(this);
                 var retName = receipt.events.sendName.returnValues.name;
 
                 this.setState({
@@ -153,11 +167,13 @@ export default class GetData extends React.Component {
                 });
             })
             .on("error", error => {
+                error = error.toString();
+
                 this.setState({
                     error: error,
                     loading: false
                 });
-                console.log(error);
+                console.log(`GetData.onModalConfirm: ${error}`);
             });
     };
 

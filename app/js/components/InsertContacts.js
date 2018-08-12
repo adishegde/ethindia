@@ -20,8 +20,8 @@ function ConfirmModal({
     gasEstimate,
     loading
 }) {
-    let rows = contacts.map(contact => (
-        <Table.Row>
+    let rows = contacts.map((contact, idx) => (
+        <Table.Row key={idx}>
             <Table.Cell>{contact.number}</Table.Cell>
             <Table.Cell>{contact.name}</Table.Cell>
         </Table.Row>
@@ -38,10 +38,14 @@ function ConfirmModal({
                             <Table.HeaderCell>Name</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    {rows}
+                    <Table.Body>{rows}</Table.Body>
                 </Table>
                 <Segment basic loading={loading}>
-                    <Header as="h4" content="Gas Estimate" />
+                    <Header
+                        as="h4"
+                        content="Gas Estimate"
+                        style={{ color: "#FFFFFF" }}
+                    />
                     {gasEstimate}
                 </Segment>
             </Modal.Content>
@@ -126,6 +130,8 @@ export default class InsertContacts extends React.Component {
                         error,
                         loading: false
                     });
+
+                    console.log(`InsertContacts.onAddContacts: ${error}`);
                 });
         } catch (error) {
             error = error.toString();
@@ -133,7 +139,7 @@ export default class InsertContacts extends React.Component {
             this.setState({
                 error
             });
-            console.log(error);
+            console.log(`InsertContacts.onAddContacts: ${error}`);
         }
     };
 
@@ -167,6 +173,7 @@ export default class InsertContacts extends React.Component {
                     loading: false,
                     error
                 });
+                console.log(`InsertContacts.onModalConfirm: ${err}`);
             });
     };
 

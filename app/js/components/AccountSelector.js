@@ -38,11 +38,14 @@ export default function AccountSelector({
                             inline
                             options={options}
                             value={currentAccount}
+                            onChange={(e, { value }) => {
+                                onAccountChange(value);
+                            }}
                         />
                         <Header as="h4" color="teal" textAlign="center">
                             Balance
                         </Header>
-                        <Icon name="ethereum" /> {balance}
+                        <Icon name="ethereum" /> {balance} ETH
                     </Segment>
                 </Grid.Column>
             </Grid>
