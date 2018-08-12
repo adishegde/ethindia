@@ -57,6 +57,17 @@ export default class App extends React.Component {
             });
     };
 
+    updateBalance = () => {
+        web3.eth.getBalance(this.state.currentAccount).then(balance => {
+            balance = web3.utils.fromWei(balance, "ether");
+            balance = Number.parseFloat(balance).toFixed(3);
+
+            this.setState({
+                balance
+            });
+        });
+    };
+
     componentDidMount() {
         EmbarkJS.onReady(() => {
             this.loadAccountUsers();
@@ -66,11 +77,18 @@ export default class App extends React.Component {
     onGetMoney = () => {
         Dreg.methods
             .getMoney()
-            .send({ from: window.defaultAccount, gas: 4612357 });
+            .send({ from: window.currentAccount, gas: 4612357 })
+            .catch(err => {
+                console.log(`App.onGetMoney: ${err}`);
+            })
+            .then(() => {
+                this.updateBalance();
+            });
     };
 
     render() {
         let { accounts, balance, currentAccount, contextRef } = this.state;
+        window.onTransaction = this.updateBalance;
 
         return (
             <div id="app" style={{ width: "100%", height: "100%" }}>

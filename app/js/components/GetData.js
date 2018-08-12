@@ -165,6 +165,8 @@ export default class GetData extends React.Component {
                     result: retName,
                     loading: false
                 });
+
+                window.onTransaction();
             })
             .on("error", error => {
                 error = error.toString();
@@ -174,6 +176,7 @@ export default class GetData extends React.Component {
                     loading: false
                 });
                 console.log(`GetData.onModalConfirm: ${error}`);
+                window.onTransaction();
             });
     };
 

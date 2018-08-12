@@ -38,7 +38,7 @@ export default class AccountInfo extends React.Component {
         super(props);
         this.state = {
             openModal: false,
-            gasEstimate: null
+            gasEstimate: "43715"
         };
     }
 

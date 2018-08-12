@@ -166,6 +166,7 @@ export default class InsertContacts extends React.Component {
                     loading: false,
                     message: "Successfully inserted contacts"
                 });
+                window.onTransaction();
             })
             .catch(error => {
                 error = error.toString();
@@ -174,6 +175,7 @@ export default class InsertContacts extends React.Component {
                     error
                 });
                 console.log(`InsertContacts.onModalConfirm: ${err}`);
+                window.onTransaction();
             });
     };
 
