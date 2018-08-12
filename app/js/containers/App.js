@@ -77,7 +77,7 @@ export default class App extends React.Component {
     onGetMoney = () => {
         Dreg.methods
             .getMoney()
-            .send({ from: window.currentAccount, gas: 4612357 })
+            .send({ from: window.defaultAccount, gas: 4612357 })
             .catch(err => {
                 console.log(`App.onGetMoney: ${err}`);
             })

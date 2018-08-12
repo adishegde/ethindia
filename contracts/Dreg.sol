@@ -10,7 +10,7 @@ contract Dreg is Ownable {
   uint charge = 0.1 ether; // Charge for each query.
 
   // uint period = 1 * 86400; // One month time period
-  uint period = 1 * 86400; // For development we use a time period of 1 second
+  uint period = 1; // For development we use a time period of 1 second
   uint previousMonthTime = now;
   uint latestMonthNumber = 1;
   uint distributedAmount;
@@ -66,9 +66,9 @@ contract Dreg is Ownable {
   }
 
   // give the owner the cost of calling distributeMoney, distribute the rest amongst the others
-  function getMoney() external changeMonth() {
+  function getMoney() external payable changeMonth() {
     require(monthlyWithdrawal[msg.sender] != latestMonthNumber, "Already withdrew the reward for current month");
     monthlyWithdrawal[msg.sender] = latestMonthNumber;
-    (msg.sender).transfer(distributedAmount);
+    msg.sender.send(distributedAmount);
   }
 }
