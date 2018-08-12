@@ -6,6 +6,10 @@ export default function TopMenu({ rightMenu, leftMenu, onOptionClick }) {
     return (
         <Segment basic inverted>
             <Menu inverted borderless fixed="top">
+                <Menu.Item as={NavLink} to="/">
+                    <Icon name="search" />
+                    Search
+                </Menu.Item>
                 <Menu.Item as={NavLink} to="/insert">
                     <Icon name="plus" />
                     Add Contacts

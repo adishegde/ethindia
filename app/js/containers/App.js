@@ -3,6 +3,7 @@ import EmbarkJS from "Embark/EmbarkJS";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
+import GetData from "../components/GetData";
 import TopMenu from "../components/TopMenu";
 import InsertContacts from "../components/InsertContacts";
 
@@ -66,6 +67,7 @@ export default class App extends React.Component {
             <div id="app" style={{ width: "100%", height: "100%" }}>
                 <TopMenu />
                 <Switch>
+                    <Route path="/" exact component={GetData} />
                     <Route
                         path="/accounts"
                         render={() => (
