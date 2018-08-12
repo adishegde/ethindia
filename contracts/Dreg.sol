@@ -5,13 +5,27 @@ import "https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contra
 contract Dreg is Ownable {
   mapping(bytes32 => string) registry;
   mapping(address => uint) userMapping;
+  mapping(address => uint) monthlyWithdrawal;
   uint charge = 0.0001 ether;
+  uint period = 28 * 86400;
+  uint previousMonthTime = now;
+  uint latestMonthNumber = 1;
+  uint distributedAmount;
   address[] userList;
 
   event sendName(string name);
 
   modifier payEther() {
     require(msg.value >= charge, "Minimum ether was not paid.");
+    _;
+  }
+
+  modifier changeMonth() {
+    if (now > previousMonthTime + period) {
+      previousMonthTime = previousMonthTime + ((now - previousMonthTime)/period) * period;
+      latestMonthNumber++;
+      distributedAmount = (address(this).balance / userList.length);
+    }
     _;
   }
 
@@ -48,11 +62,9 @@ contract Dreg is Ownable {
   }
 
   // give the owner the cost of calling distributeMoney, distribute the rest amongst the others
-  function distributeMoney() external onlyOwner{
-    owner.transfer(address(this).balance / 10);
-    uint distributedValue = (address(this).balance / userList.length);
-    for (uint i=0; i<userList.length; i++) {
-      userList[i].transfer(distributedValue);
-    }
+  function getMoney() external changeMonth() {
+    require(monthlyWithdrawal[msg.sender] != latestMonthNumber, "Already withdrew the reward for current month");
+    monthlyWithdrawal[msg.sender] = latestMonthNumber;
+    (msg.sender).transfer(distributedAmount);
   }
 }
