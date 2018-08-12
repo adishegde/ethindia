@@ -99,7 +99,19 @@
             },
             "0x151f8ff85c8af282e3e4fac04f1a1d66661b112837f237311f07b1e910d0ae82": {
                 "name": "Dreg",
-                "address": "0x21F80cF73A72699E33Aeac6958a46349cFE7fddA"
+                "address": "0xBCfBA85AAB129956eD76d5AEB07E6d4A59F87d33"
+            },
+            "0x1c6b58b4e01df9f2c58f648b8603f39f9310f085c4eb1609ad01c7a1ef16f366": {
+                "name": "Dreg",
+                "address": "0x2EfF4C83f4874EA6359ea1C9503aFb90e7ADEA24"
+            },
+            "0x1add71e426bc5f986d23c12ec9ab00bab376ede62b35e0cfeda47fa1b5271d12": {
+                "name": "Dreg",
+                "address": "0x1d7748f88c3f56be186ab9d83b6D8AD91928eE42"
+            },
+            "0xdd00c01924562c2be766eeb756ae4e10145440bc6f09ca44eff02d34c0f5f3b2": {
+                "name": "Dreg",
+                "address": "0x01BA983F7b27bA5f53bAefF66607Fa4294709246"
             }
         }
     },

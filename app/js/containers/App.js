@@ -1,9 +1,11 @@
 import React from "react";
 import EmbarkJS from "Embark/EmbarkJS";
+import Dreg from "Embark/contracts/Dreg";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import AccountSelector from "../components/AccountSelector";
 import GetData from "../components/GetData";
+import AccountInfo from "../components/AccountInfo";
 import TopMenu from "../components/TopMenu";
 import InsertContacts from "../components/InsertContacts";
 
@@ -38,6 +40,7 @@ export default class App extends React.Component {
         });
 
         web3.eth.defaultAccount = accnt;
+        window.defaultAccount = accnt; // Minor hack inject default account
 
         web3.eth
             .getBalance(accnt)
@@ -60,12 +63,23 @@ export default class App extends React.Component {
         });
     }
 
+    onGetMoney = () => {
+        Dreg.methods
+            .getMoney()
+            .send({ from: window.defaultAccount, gas: 4612357 });
+    };
+
     render() {
-        let { accounts, balance, currentAccount } = this.state;
+        let { accounts, balance, currentAccount, contextRef } = this.state;
 
         return (
             <div id="app" style={{ width: "100%", height: "100%" }}>
                 <TopMenu />
+                <AccountInfo
+                    account={currentAccount}
+                    balance={balance}
+                    onGetMoney={this.onGetMoney}
+                />
                 <Switch>
                     <Route path="/" exact component={GetData} />
                     <Route

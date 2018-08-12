@@ -6,8 +6,11 @@ contract Dreg is Ownable {
   mapping(bytes32 => string) registry;
   mapping(address => uint) userMapping;
   mapping(address => uint) monthlyWithdrawal;
-  uint charge = 0.0001 ether;
-  uint period = 28 * 86400;
+  //uint charge = 0.0001 ether; // Charge for each query.
+  uint charge = 0.1 ether; // Charge for each query.
+
+  // uint period = 1 * 86400; // One month time period
+  uint period = 1 * 86400; // For development we use a time period of 1 second
   uint previousMonthTime = now;
   uint latestMonthNumber = 1;
   uint distributedAmount;

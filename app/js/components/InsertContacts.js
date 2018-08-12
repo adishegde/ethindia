@@ -157,7 +157,7 @@ export default class InsertContacts extends React.Component {
         let insertPormises = contacts.map(contact =>
             Dreg.methods
                 .insert(contact.number, contact.name)
-                .send({ gas: 4612357 })
+                .send({ from: window.defaultAccount, gas: 4612357 })
         );
 
         Promise.all(insertPormises)

@@ -157,7 +157,7 @@ export default class GetData extends React.Component {
 
         Dreg.methods
             .getName(this.state.query)
-            .send({ value: this.state.cost })
+            .send({ from: window.defaultAccount, value: this.state.cost })
             .on("receipt", receipt => {
                 var retName = receipt.events.sendName.returnValues.name;
 
