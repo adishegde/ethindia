@@ -2,6 +2,7 @@ import React from "react";
 import {
     Segment,
     Table,
+    Dropdown,
     Button,
     Icon,
     Modal,
@@ -75,7 +76,18 @@ export default class AccountInfo extends React.Component {
     };
 
     render() {
-        let { account, balance, attachTo, onGetMoney } = this.props;
+        let {
+            account,
+            balance,
+            onGetMoney,
+            onAccountChange,
+            accounts,
+            currentAccount
+        } = this.props;
+        let options = accounts.map(acnt => ({
+            text: acnt,
+            value: acnt
+        }));
         return (
             <Segment
                 style={{ position: "fixed", top: "30px", right: "5px" }}
@@ -85,7 +97,17 @@ export default class AccountInfo extends React.Component {
                     <Table.Body>
                         <Table.Row>
                             <Table.Cell>Account</Table.Cell>
-                            <Table.Cell>{account}</Table.Cell>
+                            <Table.Cell>
+                                <Dropdown
+                                    inline
+                                    compact
+                                    options={options}
+                                    value={currentAccount}
+                                    onChange={(e, { value }) => {
+                                        onAccountChange(value);
+                                    }}
+                                />
+                            </Table.Cell>
                         </Table.Row>
                         <Table.Row>
                             <Table.Cell>Balance</Table.Cell>

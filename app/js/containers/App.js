@@ -3,7 +3,6 @@ import EmbarkJS from "Embark/EmbarkJS";
 import Dreg from "Embark/contracts/Dreg";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import AccountSelector from "../components/AccountSelector";
 import GetData from "../components/GetData";
 import AccountInfo from "../components/AccountInfo";
 import TopMenu from "../components/TopMenu";
@@ -97,20 +96,12 @@ export default class App extends React.Component {
                     account={currentAccount}
                     balance={balance}
                     onGetMoney={this.onGetMoney}
+                    onAccountChange={this.onAccountChange}
+                    accounts={accounts}
+                    currentAccount={currentAccount}
                 />
                 <Switch>
                     <Route path="/" exact component={GetData} />
-                    <Route
-                        path="/accounts"
-                        render={() => (
-                            <AccountSelector
-                                accounts={accounts}
-                                currentAccount={currentAccount}
-                                balance={balance}
-                                onAccountChange={this.onAccountChange}
-                            />
-                        )}
-                    />
                     <Route path="/insert" component={InsertContacts} />
                 </Switch>
             </div>
