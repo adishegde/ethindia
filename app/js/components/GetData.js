@@ -7,26 +7,30 @@ import {
     Message,
     Button,
     Input,
-    Modal,
-    Loader
+    Modal
 } from "semantic-ui-react";
 import Dreg from "Embark/contracts/Dreg";
 
 function ConfirmModal({ open, onConfirm, onCancel, trCost, loading }) {
-    let cost = trCost;
-    if (loading) cost = <Loader size="mini" />;
+    let cost = web3.utils.fromWei(trCost, "ether");
+    if (loading) cost = "-";
 
     return (
         <Modal open={open} onCancel={onCancel} basic size="small">
             <Header content="Confirm Transaction" />
             <Modal.Content>
-                This transaction will cost {trCost} wei.
+                This transaction will cost {cost} ETH.
             </Modal.Content>
             <Modal.Actions>
                 <Button basic color="red" inverted onClick={onCancel}>
                     <Icon name="remove" /> Cancel
                 </Button>
-                <Button color="green" inverted onClick={onConfirm}>
+                <Button
+                    color="green"
+                    inverted
+                    onClick={onConfirm}
+                    loading={loading}
+                >
                     <Icon name="checkmark" /> Confirm
                 </Button>
             </Modal.Actions>
@@ -142,7 +146,7 @@ export default class GetData extends React.Component {
 
         Dreg.methods
             .getName(this.state.query)
-            .send({ value: this.state.cost + "0" })
+            .send({ value: this.state.cost })
             .on("receipt", receipt => {
                 var retName = receipt.events.sendName.returnValues.name;
 

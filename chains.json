@@ -96,6 +96,10 @@
             "0xa03f14762d34db85a0e6826f2e05a3f8ebee62e39588077b63659571b5c76493": {
                 "name": "Dreg",
                 "address": "0x6cdFa3cd4A6794F998BF5962DB2Cf48299A6b33A"
+            },
+            "0x151f8ff85c8af282e3e4fac04f1a1d66661b112837f237311f07b1e910d0ae82": {
+                "name": "Dreg",
+                "address": "0x6D461571268d7eEd48D0ffCB83dBdA07256C9151"
             }
         }
     },

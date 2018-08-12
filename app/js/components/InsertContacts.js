@@ -20,8 +20,8 @@ function ConfirmModal({
     gasEstimate,
     loading
 }) {
-    let rows = contacts.map(contact => (
-        <Table.Row>
+    let rows = contacts.map((contact, idx) => (
+        <Table.Row key={idx}>
             <Table.Cell>{contact.number}</Table.Cell>
             <Table.Cell>{contact.name}</Table.Cell>
         </Table.Row>
@@ -38,7 +38,7 @@ function ConfirmModal({
                             <Table.HeaderCell>Name</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
-                    {rows}
+                    <Table.Body>{rows}</Table.Body>
                 </Table>
                 <Segment basic loading={loading}>
                     <Header as="h4" content="Gas Estimate" />
