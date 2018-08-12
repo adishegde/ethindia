@@ -76,7 +76,7 @@ export default class GetData extends React.Component {
                             {this.state.result ? (
                                 <div>
                                     <Header as="h4" content="Result" />
-                                    {result}
+                                    {this.state.result}
                                 </div>
                             ) : null}
                         </Segment>
@@ -137,18 +137,24 @@ export default class GetData extends React.Component {
             error: ""
         });
 
+        console.log(typeof this.state.cost, this.state.cost, this);
+
         Dreg.methods
             .getName(this.state.query)
-            .send({ value: this.state.cost })
-            .on("sendName", name => {
+            .send({ value: this.state.cost + "0" })
+            .on("receipt", receipt => {
+                console.log(receipt);
+                console.log(this);
+                var retName = receipt.events.sendName.returnValues.name;
+
                 this.setState({
-                    result: name,
+                    result: retName,
                     loading: false
                 });
             })
             .on("error", error => {
                 this.setState({
-                    error,
+                    error: error,
                     loading: false
                 });
                 console.log(error);

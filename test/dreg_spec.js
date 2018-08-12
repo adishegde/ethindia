@@ -23,12 +23,14 @@ contract("Dreg contract", () => {
     });
 
     it("retrieves name from phone number", async () => {
+        var retName;
         await Dreg.methods
             .getName(phoneNumber)
             .send({ value: "100000000000000" })
-            .on("sendName", function(name) {
-                assert.equal(name, retName);
+            .on("receipt", function(receipt) {
+                retName = receipt.events.sendName.returnValues.name;
             });
+        assert.equal(name, retName);
     });
 
     it("Balance", async () => {
