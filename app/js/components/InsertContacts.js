@@ -126,6 +126,8 @@ export default class InsertContacts extends React.Component {
                         error,
                         loading: false
                     });
+
+                    console.log(`InsertContacts.onAddContacts: ${error}`);
                 });
         } catch (error) {
             error = error.toString();
@@ -133,7 +135,7 @@ export default class InsertContacts extends React.Component {
             this.setState({
                 error
             });
-            console.log(error);
+            console.log(`InsertContacts.onAddContacts: ${error}`);
         }
     };
 
@@ -167,6 +169,7 @@ export default class InsertContacts extends React.Component {
                     loading: false,
                     error
                 });
+                console.log(`InsertContacts.onModalConfirm: ${err}`);
             });
     };
 

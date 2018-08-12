@@ -122,11 +122,14 @@ export default class GetData extends React.Component {
                 });
             })
             .catch(error => {
+                error = error.toString();
+
                 this.setState({
                     error,
                     loading: false,
                     openModal: false
                 });
+                console.log(`GetData.onSearch: ${error}`);
             });
     };
 
@@ -137,14 +140,10 @@ export default class GetData extends React.Component {
             error: ""
         });
 
-        console.log(typeof this.state.cost, this.state.cost, this);
-
         Dreg.methods
             .getName(this.state.query)
             .send({ value: this.state.cost + "0" })
             .on("receipt", receipt => {
-                console.log(receipt);
-                console.log(this);
                 var retName = receipt.events.sendName.returnValues.name;
 
                 this.setState({
@@ -153,11 +152,13 @@ export default class GetData extends React.Component {
                 });
             })
             .on("error", error => {
+                error = error.toString();
+
                 this.setState({
                     error: error,
                     loading: false
                 });
-                console.log(error);
+                console.log(`GetData.onModalConfirm: ${error}`);
             });
     };
 
