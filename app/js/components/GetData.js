@@ -19,7 +19,8 @@ function ConfirmModal({ open, onConfirm, onCancel, trCost, loading }) {
         <Modal open={open} onCancel={onCancel} basic size="small">
             <Header content="Confirm Transaction" />
             <Modal.Content>
-                This transaction will cost {cost} ETH.
+                This transaction will cost <Icon name="ethereum" />
+                {cost} ETH.
             </Modal.Content>
             <Modal.Actions>
                 <Button basic color="red" inverted onClick={onCancel}>
@@ -44,7 +45,7 @@ export default class GetData extends React.Component {
 
         this.state = {
             query: "",
-            result: "",
+            result: null,
             loading: false,
             error: "",
             openModal: false,
@@ -53,6 +54,18 @@ export default class GetData extends React.Component {
     }
 
     render() {
+        let resultEl = null;
+        if (this.state.result !== null) {
+            resultEl = (
+                <Segment basic>
+                    <div>
+                        <Header as="h3" content="Result" color="teal" />
+                        {this.state.result || "No results found"}
+                    </div>
+                </Segment>
+            );
+        }
+
         return (
             <div className="get-data" style={{ height: "100%", width: "100%" }}>
                 <Grid
@@ -64,26 +77,23 @@ export default class GetData extends React.Component {
                         <Header as="h2" color="teal" textAlign="center">
                             Query using Mobile Number
                         </Header>
-                        <Segment>
-                            <Input
-                                value={this.state.query}
-                                onChange={this.onInputChange}
-                                placeholder="Enter mobile number"
-                            />
-                            <Button
-                                onClick={this.onSearch}
-                                color="teal"
-                                loading={this.state.loading}
-                            >
-                                Search
-                            </Button>
-                            {this.state.result ? (
-                                <div>
-                                    <Header as="h4" content="Result" />
-                                    {this.state.result}
-                                </div>
-                            ) : null}
-                        </Segment>
+                        <Segment.Group>
+                            <Segment>
+                                <Input
+                                    value={this.state.query}
+                                    onChange={this.onInputChange}
+                                    placeholder="Enter mobile number"
+                                />
+                                <Button
+                                    onClick={this.onSearch}
+                                    color="teal"
+                                    loading={this.state.loading}
+                                >
+                                    Search
+                                </Button>
+                            </Segment>
+                            {resultEl}
+                        </Segment.Group>
                         {this.state.error ? (
                             <Message negative>
                                 <Message.Header>
@@ -113,7 +123,8 @@ export default class GetData extends React.Component {
     onSearch = () => {
         this.setState({
             openModal: true,
-            loading: true
+            loading: true,
+            result: null
         });
 
         Dreg.methods
