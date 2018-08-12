@@ -149,7 +149,9 @@ export default class InsertContacts extends React.Component {
         let { gasEstimate, contacts } = this.state;
 
         let insertPormises = contacts.map(contact =>
-            Dreg.methods.insert(contact.number, contact.name).send()
+            Dreg.methods
+                .insert(contact.number, contact.name)
+                .send({ gas: 4612357 })
         );
 
         Promise.all(insertPormises)
